@@ -31,6 +31,8 @@ int main() // <- точка входа в программу
         cout << "Введите дату:    ";
         cin >> day >> month >> year;
 
+        years[i] = year;
+
         if (!is_correct_date(day, month, year))
             return 1; // просто взял и вышел, если дата некорректна. Имею право.
 
@@ -45,8 +47,6 @@ int main() // <- точка входа в программу
         total_days[i] += month / 2; // добавляем месяцы с 31 днями
         if (month == NOV) // ноябрь - особый случай (до него было (11/2 + 1) месяцев по 31 дню).
             ++total_days[i];
-
-        years[i] = year;
 
 //#define DEBUG
 #ifdef DEBUG // для отладки программы.
