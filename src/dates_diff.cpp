@@ -11,7 +11,7 @@ bool is_valid_date(int day, int month, int year);
 int get_days_diff(int days1, int days2, int year1, int year2);
 bool is_leap(int year);
 
-enum { FEB = 2, AUG = 8, NOV = 11 };
+enum { FEB = 2, AUG = 8, SEP = 9, NOV = 11 };
 
 
 int main() // <- точка входа в программу
@@ -43,7 +43,7 @@ int main() // <- точка входа в программу
         }
 
         total_days[i] += month / 2; // добавляем месяцы с 31 днями
-        if (month == NOV) // ноябрь - особый случай (до него было (11/2 + 1) месяцев по 31 дню).
+        if (month == SEP || month == NOV) // 2 особых случая
             ++total_days[i];
 
 //#define DEBUG // отладочная инфа
