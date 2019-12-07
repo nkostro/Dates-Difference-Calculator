@@ -72,7 +72,7 @@ bool is_correct_date(int d, int m, int y)
         return false;
 
     if (m == FEB)
-        return is_leap(y) ? m == 29 : m == 28;
+        return is_leap(y) ? d <= 29 : d <= 28;
 
     if (m % 2 == 0) {
         // до августа у четных месяцев - 30 дней
