@@ -7,7 +7,7 @@
 
 
 /* Объявляю функции. Сами ф-ии находятся под ф-ей main() */
-bool is_correct_date(int day, int month, int year);
+bool is_valid_date(int day, int month, int year);
 int get_days_diff(int days1, int days2, int year1, int year2);
 bool is_leap(int year);
 
@@ -33,7 +33,7 @@ int main() // <- точка входа в программу
 
         years[i] = year;
 
-        if (!is_correct_date(day, month, year))
+        if (!is_valid_date(day, month, year))
             return 1; // просто взял и вышел, если дата некорректна. Имею право.
 
         total_days[i] = day + (month - 1) * avg_days_in_month; // (month - 1) чтобы не учитывать текущий месяц
@@ -67,7 +67,7 @@ int main() // <- точка входа в программу
 
 /* Проверка даты на корректность
  */
-bool is_correct_date(int d, int m, int y)
+bool is_valid_date(int d, int m, int y)
 {
     if (d <= 0 || m <= 0 || y <= 0 || d > 31 || m > 12)
         return false;
