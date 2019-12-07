@@ -23,29 +23,30 @@ int main() // <- точка входа в программу
     int total_days[2] = {}; // число дней с начала года до текущей даты. Для 2 дат.
     // {} - списковая инициализация. Забили массив дефолтными значениями, в данном случае - нулями.
 
-    int day, month;
     int years[2] = {}; // года мне пригодятся за циклом.
 
-    // В цикле просто вычисляю число дней с начала года до каждой из дат включительно
+    // В цикле просто вычисляю число дней с начала года до каждой из дат, включительно.
     for (int i = 0; i < 2; ++i) { // повторяем для 2 дат
+        int day, month, year;
         cout << "Введите дату:    ";
-        cin >> day >> month >> years[i];
+        cin >> day >> month >> year;
 
-        if (!is_correct_date(day, month, years[i]))
+        if (!is_correct_date(day, month, year))
             return 1; // просто взял и вышел, если дата некорректна. Имею право.
 
         total_days[i] = day + (month - 1) * avg_days_in_month; // (month - 1) чтобы не учитывать текущий месяц
 
         if (month > FEB) {
             total_days[i] -= 2; // убираем 2 февральских дня
-            if (is_leap(years[i]))
-                ++total_days[i]; // добавил обратно 1 февральский день
+            if (is_leap(year))
+                ++total_days[i]; // добавляем обратно 1 февральский день
         }
 
-        total_days[i] += month / 2; // учитываем месяцы с 31 днями
+        total_days[i] += month / 2; // добавляем месяцы с 31 днями
         if (month == NOV) // ноябрь - особый случай (до него было (11/2 + 1) месяцев по 31 дню).
             ++total_days[i];
 
+        years[i] = year;
 
 //#define DEBUG
 #ifdef DEBUG // для отладки программы.
@@ -56,6 +57,7 @@ int main() // <- точка входа в программу
     }
 
     int days_diff = get_days_diff(total_days[0], total_days[1], years[0], years[1]);
+
     cout << "\nРазница в днях: " << days_diff << endl;
 }
 
@@ -74,16 +76,17 @@ bool is_correct_date(int d, int m, int y)
         return is_leap(y) ? d <= 29 : d <= 28;
 
     if (m % 2 == 0) {
-        // до августа у четных месяцев - 30 дней
+        // у четных месяцев перед августом - 30 дней
         if (m < AUG && d > 30)
             return false;
     } else {
-        // после августа у нечетных месяцев - 30 дней
+        // у нечетных месяцев после августа - 30 дней
         if (m > AUG && d > 30)
             return false;
     }
 
-    // если дошли досюда, значит дата корректна (по крайней мере, я на это надеюсь) и месяц - не февраль.
+    // Если дошли досюда, значит дата корректна (по крайней мере, я на это надеюсь).
+    // (Корректность февральских дат проверяется выше).
     return true;
 }
 
@@ -116,7 +119,8 @@ int get_days_diff(int days1, int days2, int year1, int year2)
  * true  - год високосный
  * false - год невисокосный
  */
-bool is_leap(int year) {
+bool is_leap(int year)
+{
     return year % 400 == 0 ||
           (year % 4 == 0 && year % 100 != 0);
 }
