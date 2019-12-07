@@ -16,8 +16,6 @@ enum { FEB = 2, AUG = 8, NOV = 11 };
 
 int main() // <- точка входа в программу
 {
-    using namespace std;
-
     const int avg_days_in_month = 30; // количество дней в месяце, в среднем
 
     int total_days[2] = {}; // число дней с начала года до текущей даты. Для 2 дат.
@@ -28,8 +26,8 @@ int main() // <- точка входа в программу
     // В цикле просто вычисляю число дней с начала года до каждой из дат, включительно.
     for (int i = 0; i < 2; ++i) { // повторяем для 2 дат
         int day, month, year;
-        cout << "Введите дату:    ";
-        cin >> day >> month >> year;
+        std::cout << "Введите дату:    ";
+        std::cin >> day >> month >> year;
 
         years[i] = year;
 
@@ -48,17 +46,16 @@ int main() // <- точка входа в программу
         if (month == NOV) // ноябрь - особый случай (до него было (11/2 + 1) месяцев по 31 дню).
             ++total_days[i];
 
-//#define DEBUG
-#ifdef DEBUG // для отладки программы.
+//#define DEBUG // отладочная инфа
+#ifdef DEBUG
         // чтобы увидеть эти сообщения, раскомментируйте #define DEBUG
-        cout << "DEBUG:\t";
-        cout << "total_days = " << total_days[i] << endl;
+        std::cout << "DEBUG:\ttotal_days = " << total_days[i] << std::endl;
 #endif
     }
 
     int days_diff = get_days_diff(total_days[0], total_days[1], years[0], years[1]);
 
-    cout << "\nРазница в днях: " << days_diff << endl;
+    std::cout << "\nРазница в днях: " << days_diff << std::endl;
 } // <- точка выхода из программы
 
 
@@ -85,8 +82,8 @@ bool is_valid_date(int d, int m, int y)
             return false;
     }
 
-    // Если дошли досюда, значит дата корректна (по крайней мере, я на это надеюсь).
-    // (Корректность февральских дат проверяется выше).
+    // Если мы здесь - значит дата корректна (по крайней мере, я на это надеюсь).
+    // Корректность февральских дат проверяется выше.
     return true;
 }
 
