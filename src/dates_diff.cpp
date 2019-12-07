@@ -59,7 +59,7 @@ int main() // <- точка входа в программу
     int days_diff = get_days_diff(total_days[0], total_days[1], years[0], years[1]);
 
     cout << "\nРазница в днях: " << days_diff << endl;
-}
+} // <- точка выхода из программы
 
 
 /* Определения функций находятся здесь */
@@ -95,29 +95,18 @@ bool is_valid_date(int d, int m, int y)
  */
 int get_days_diff(int days1, int days2, int year1, int year2)
 {
-    int days_diff = 0;
-    int years_diff = year2 - year1;
+    int days_diff = days2 - days1;
 
-    if (years_diff == 0)
-        days_diff = days2 - days1;
-    else {
-        days_diff = 365 - days1 + days2;
-        if (is_leap(year1))
+    for (int i = year1; i < year2; ++i) {
+        days_diff += 365;
+        if (is_leap(i))
             ++days_diff;
-
-        for (int i = year1 + 1; i < year2; ++i) {
-            days_diff += 365;
-            if (is_leap(i))
-                ++days_diff;
-        }
     }
 
     return days_diff;
 }
 
 /* Определяет, является ли год високосным
- * true  - год високосный
- * false - год невисокосный
  */
 bool is_leap(int year)
 {
