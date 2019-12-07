@@ -11,7 +11,7 @@ bool is_valid_date(int day, int month, int year);
 int get_days_diff(int days1, int days2, int year1, int year2);
 bool is_leap(int year);
 
-enum { JAN = 1, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC };
+enum { FEB = 2, AUG = 8, NOV = 11 };
 
 
 int main() // <- точка входа в программу
