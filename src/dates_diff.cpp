@@ -34,7 +34,7 @@ int main() // <- точка входа в программу
         if (!is_valid_date(day, month, year))
             return 1; // просто взял и вышел, если дата некорректна. Имею право.
 
-        total_days[i] = day + (month - 1) * avg_days_in_month; // (month - 1) чтобы не учитывать текущий месяц
+        total_days[i] = day + (month - 1) * avg_days_in_month;
 
         if (month > FEB) {
             total_days[i] -= 2; // убираем 2 февральских дня
