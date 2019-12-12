@@ -1,4 +1,4 @@
 # Dates-Difference-Calculator
-Calcs difference in days between 2 dates
+Calc days difference between two dates
 
-Made for educational purposes, so I heavily commented it in russian.
+Made for educational purposes.
