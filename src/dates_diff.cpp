@@ -5,22 +5,23 @@
 
 #include <iostream>
 
+
 bool is_valid_date(int day, int month, int year);
 int get_days_diff(int days1, int days2, int year1, int year2);
 bool is_leap(int year);
+
 
 enum { FEB = 2, AUG = 8, SEP = 9, NOV = 11 };
 
 
 int main()
 {
-    const int avg_days_in_month = 30; // количество дней в месяце, в среднем
-    const int ndates = 2; // число дат
+    const int avg_days_in_month = 30;
+    const int ndates = 2;
 
-    int total_days[ndates] = {}; // число дней с начала года до текущей даты
+    int total_days[ndates] = {}; // days number since the beginning of year to each date
     int years[ndates] = {};
 
-    // Вычисление числа дней с начала года до каждой из дат, включительно.
     for (int i = 0; i < ndates; ++i) {
         int day, month, year;
         std::cout << "Input date:    ";
@@ -34,16 +35,14 @@ int main()
         total_days[i] = day + (month - 1) * avg_days_in_month;
 
         if (month > FEB) {
-            total_days[i] -= 2; // убираем 2 февральских дня
+            total_days[i] -= 2; // remove 2 feb days
             if (is_leap(year))
-                ++total_days[i]; // добавляем обратно 1 февральский день
+                ++total_days[i]; // add 1 feb day for leap years
         }
 
-        total_days[i] += month / 2; // добавляем месяцы с 31 днями
+        total_days[i] += month / 2; // add +1 day for each month with 31 days that preceeds this `month`
 
-        /* для сентября и ноября наш способ подсчета числа месяцев с 31 днями
-           не работает и нужно добавить +1 месяц
-        */
+        // For september or november we must add +1 additional day.
         if (month == SEP || month == NOV)
             ++total_days[i];
 
@@ -69,10 +68,10 @@ bool is_valid_date(int d, int m, int y)
         return is_leap(y) ? d <= 29 : d <= 28;
 
     if (m % 2 == 0) {
-        if (m < AUG && d > 30) // у четных месяцев перед августом - 30 дней
+        if (m < AUG && d > 30) // even months before august have 30 days
             return false;
     } else {
-        if (m > AUG && d > 30) // у нечетных месяцев после августа - 30 дней
+        if (m > AUG && d > 30) // odd months after august have 30 days
             return false;
     }
 
@@ -80,9 +79,9 @@ bool is_valid_date(int d, int m, int y)
 }
 
 
-/* Вычисляет разницу дней между двумя датами.
- * Каждая дата представлена в виде количества дней, прошедших с начала года,
- * до этой даты включительно.
+/* Calc days difference between two dates.
+ * Each date is represented as number of days passed since the beginning of year
+ * to that date inclusive.
  */
 int get_days_diff(int days1, int days2, int year1, int year2)
 {
@@ -96,6 +95,7 @@ int get_days_diff(int days1, int days2, int year1, int year2)
 
     return days_diff;
 }
+
 
 /* Check if year is leap.
  */
