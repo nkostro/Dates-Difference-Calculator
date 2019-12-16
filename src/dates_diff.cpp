@@ -39,7 +39,6 @@ int main()
     for (int i = 1; i < ndates; i += 2) {
         int days_diff = get_days_diff(total_days[i-1], total_days[i],
                                       years[i-1], years[i]);
-
         std::cout << "\nDays difference: " << days_diff << std::endl;
     }
 }
@@ -70,6 +69,10 @@ bool is_valid_date(int d, int m, int y)
 }
 
 
+/* Get days from beginning of @year.
+ *
+ * @returns days number from beginning of @year to @day of @month.
+ */
 int get_days_from_start_of_year(int day, int month, int year)
 {
     const int avg_days_in_month = 30;
@@ -95,6 +98,8 @@ int get_days_from_start_of_year(int day, int month, int year)
 /* Calc days difference between two dates.
  * Each date is represented as number of days passed since the beginning of year
  * to that date inclusive.
+ *
+ * @returns days difference between two dates.
  */
 int get_days_diff(int days1, int days2, int year1, int year2)
 {
@@ -117,4 +122,3 @@ bool is_leap(int year)
     return year % 400 == 0 ||
           (year % 4 == 0 && year % 100 != 0);
 }
-
