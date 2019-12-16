@@ -36,9 +36,12 @@ int main()
 #endif
     }
 
-    int days_diff = get_days_diff(total_days[0], total_days[1], years[0], years[1]);
+    for (int i = 1; i < ndates; i += 2) {
+        int days_diff = get_days_diff(total_days[i-1], total_days[i],
+                                      years[i-1], years[i]);
 
-    std::cout << "\nDays difference: " << days_diff << std::endl;
+        std::cout << "\nDays difference: " << days_diff << std::endl;
+    }
 }
 
 
