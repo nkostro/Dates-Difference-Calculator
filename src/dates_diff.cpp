@@ -7,16 +7,13 @@
 
 
 bool is_valid_date(int day, int month, int year);
+int get_days_from_start_of_year(int day, int month, int year);
 int get_days_diff(int days1, int days2, int year1, int year2);
 bool is_leap(int year);
 
 
-enum { FEB = 2, AUG = 8, SEP = 9, NOV = 11 };
-
-
 int main()
 {
-    const int avg_days_in_month = 30;
     const int ndates = 2;
 
     int total_days[ndates] = {}; // days number since the beginning of year to each date
@@ -32,19 +29,7 @@ int main()
         if (!is_valid_date(day, month, year))
             return 1;
 
-        total_days[i] = day + (month - 1) * avg_days_in_month;
-
-        if (month > FEB) {
-            total_days[i] -= 2; // remove 2 feb days
-            if (is_leap(year))
-                ++total_days[i]; // add 1 feb day for leap years
-        }
-
-        total_days[i] += month / 2; // add +1 day for each month with 31 days that preceeds this `month`
-
-        // For september or november we must add +1 additional day.
-        if (month == SEP || month == NOV)
-            ++total_days[i];
+        total_days[i] = get_days_from_start_of_year(day, month, year);
 
 #ifdef DEBUG
         std::cout << "DEBUG:\ttotal_days = " << total_days[i] << std::endl;
@@ -55,6 +40,9 @@ int main()
 
     std::cout << "\nDays difference: " << days_diff << std::endl;
 }
+
+
+enum { FEB = 2, AUG = 8, SEP = 9, NOV = 11 };
 
 
 /* Check date for correctness.
@@ -76,6 +64,28 @@ bool is_valid_date(int d, int m, int y)
     }
 
     return true;
+}
+
+
+int get_days_from_start_of_year(int day, int month, int year)
+{
+    const int avg_days_in_month = 30;
+
+    int days = day + (month - 1) * avg_days_in_month;
+
+    if (month > FEB) {
+        days -= 2; // remove 2 feb days
+        if (is_leap(year))
+            ++days; // add 1 feb day for leap years
+    }
+
+    days += month / 2; // add +1 day for each month with 31 days that preceeds this `month`
+
+    // For september or november we must add +1 additional day.
+    if (month == SEP || month == NOV)
+        ++days;
+
+    return days;
 }
 
 
@@ -104,3 +114,4 @@ bool is_leap(int year)
     return year % 400 == 0 ||
           (year % 4 == 0 && year % 100 != 0);
 }
+
