@@ -69,9 +69,9 @@ bool is_valid_date(int d, int m, int y)
 }
 
 
-/* Get days from beginning of @year.
+/* Get days from beginning of @arg year.
  *
- * @returns days number from beginning of @year to @day of @month.
+ * @returns days number from beginning of @arg year to @arg day of @arg month.
  */
 int get_days_from_start_of_year(int day, int month, int year)
 {
